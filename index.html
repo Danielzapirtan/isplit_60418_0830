@@ -223,7 +223,7 @@ ${textSample}
     }
 
     // Extract text sample from first N pages)
-    async function extractSampleFromPDF(pdfDoc, maxSamplePages = 120) {
+    async function extractSampleFromPDF(pdfDoc, maxSamplePages = 60) {
         const pagesToSample = Math.min(totalPages, maxSamplePages);
         let sampleText = '';
         for (let i = 0; i < pagesToSample; i++) {
@@ -257,7 +257,7 @@ ${textSample}
         // Now extract using pdf.js
         const loadingTask = pdfjsLib.getDocument({ data: pdfBytes });
         const pdfJsDoc = await loadingTask.promise;
-        const sampleLimit = totalPages; //Math.min(totalPages, 32);
+        const sampleLimit = Math.min(totalPages, 60);
         let fullSample = '';
         for (let i = 1; i <= sampleLimit; i++) {
             const page = await pdfJsDoc.getPage(i);
