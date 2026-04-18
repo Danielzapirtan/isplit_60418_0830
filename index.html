@@ -262,7 +262,7 @@ ${textSample}
         // Now extract using pdf.js
         const loadingTask = pdfjsLib.getDocument({ data: pdfBytes });
         const pdfJsDoc = await loadingTask.promise;
-        const sampleLimit = Math.min(totalPages, 120);
+        const sampleLimit = Math.min(totalPages, myMaxPages);
         let fullSample = '';
         for (let i = 1; i <= sampleLimit; i++) {
             const page = await pdfJsDoc.getPage(i);
