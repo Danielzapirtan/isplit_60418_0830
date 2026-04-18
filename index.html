@@ -150,8 +150,13 @@
             }
         };
         reader.readAsArrayBuffer(file);
+        if (file.size > 1024*1024*10) {
+          alert(`File too big. We will try to handle such file in a later version`);
+          return;
+        }
     }
 
+    const myMaxPages = 120;
     // Event listeners
     dropZone.addEventListener('click', () => fileInput.click());
     dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
@@ -223,7 +228,7 @@ ${textSample}
     }
 
     // Extract text sample from first N pages)
-    async function extractSampleFromPDF(pdfDoc, maxSamplePages = 30) {
+    async function extractSampleFromPDF(pdfDoc, maxSamplePages = myMaxPages) {
         const pagesToSample = Math.min(totalPages, maxSamplePages);
         let sampleText = '';
         for (let i = 0; i < pagesToSample; i++) {
@@ -257,7 +262,7 @@ ${textSample}
         // Now extract using pdf.js
         const loadingTask = pdfjsLib.getDocument({ data: pdfBytes });
         const pdfJsDoc = await loadingTask.promise;
-        const sampleLimit = Math.min(totalPages, 30);
+        const sampleLimit = Math.min(totalPages, 120);
         let fullSample = '';
         for (let i = 1; i <= sampleLimit; i++) {
             const page = await pdfJsDoc.getPage(i);
@@ -279,7 +284,7 @@ ${textSample}
         log('📖 Extracting sample text (first ~30 pages) using PDF.js...');
         
         try {
-            const sampleText = await extractSampleFromPDF(pdfDoc, 60);
+            const sampleText = await extractSampleFromPDF(pdfDoc, myMaxPages);
             log(`📊 Sample length: ${sampleText.length} chars.`);
             
             setStatus('🧠 Analyzing with Gemini...', '#dbeafe');
