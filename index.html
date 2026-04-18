@@ -170,7 +170,7 @@
         if (!apiKey) throw new Error('Please enter Gemini API key.');
         
         const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }); // fast & moderate
+        const model = genAI.getGenerativeModel({ model: "gemini-3.1-flash-lite-preview" }); // fast & moderate
         
         const prompt = `
 You are a PDF structure analyzer. You will receive extracted text samples from a book's pages (first ~30 pages sample). Determine the following to enable precise chapter splitting:
