@@ -365,7 +365,7 @@ ${textSample}
             
             // Check if > 40MB -> split further
             const sizeMB = blob.size / (1024*1024);
-            if (sizeMB > 40) {
+            if (sizeMB > 120) {
                 log(`⚠️ "${chap.title}" is ${sizeMB.toFixed(1)} MB (>40MB). Splitting internally...`);
                 // recursively split? For simplicity, we just warn and offer single file.
             }
