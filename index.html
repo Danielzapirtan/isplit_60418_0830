@@ -125,6 +125,7 @@
         setStatus('⚪ Ready');
     }
 
+    let myMaxPages = 240;
     // Handle file selection
     function handleFile(file) {
         if (!file) return;
@@ -151,12 +152,11 @@
         };
         reader.readAsArrayBuffer(file);
         if (file.size > 1024*1024*10) {
-          alert(`File too big. We will try to handle such file in a later version`);
+          myMaxPages = 30;
           return;
         }
     }
 
-    const myMaxPages = 240;
     // Event listeners
     dropZone.addEventListener('click', () => fileInput.click());
     dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
